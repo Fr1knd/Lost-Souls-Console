@@ -1,0 +1,39 @@
+import mctools
+from mctools import  RCONClient
+
+@client.command(aliases=['куратор'])
+        @commands.has_any_role(789535566453800980, 894233621890732092, 800090778943750174, 936225667094282240)
+        async def givecurator(ctx, server = None, member = None, reason = None):
+            if server is None:
+                return await ctx.reply('''
+
+            if member is None:
+                return await ctx.reply('Укажите NickName игрока')
+            if reason is None:
+                return await ctx.reply('Укажите причину выдачи привилегии')
+            if server == '1': #выживание 
+                HOST = '26.158.107.208'
+                PORT = 25565
+
+                rcon = RCONClient(HOST, port = PORT)
+                if rcon.login('0000'):
+                    resp = rcon.command(f'lp user {member} parent set curator') #происходит сама выдача
+                    rcon.stop()
+                            
+                await ctx.reply(f'''
+Вы выдали привилегию curator игроку {member} на 1 сервер. Причина: {reason}
+            ''')
+                return
+            if server == '2': #bedwars
+                HOST = '26.158.107.208'
+                PORT = 25565
+
+                rcon = RCONClient(HOST, port = PORT)
+                if rcon.login('0000'):
+                    resp = rcon.command(f'lp user {member} parent set curator') #команда для выдачи привы
+                    rcon.stop()
+                            
+                await ctx.reply(f'''
+Вы выдали привилегию curator игроку {member} на 1 сервер. Причина: {reason}
+            ''')
+                return
